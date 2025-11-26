@@ -32,6 +32,7 @@ jobs:
       - name: Build Docker image
         run: |
           docker build \
+            --no-cache \
             -t ghcr.io/thegangtechnology/${REPO_NAME}/tg-runner-image:latest \
             .
 

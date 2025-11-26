@@ -25,10 +25,36 @@ RUN gem install brakeman
 RUN mkdir -p /opt/hostedtoolcache && \
     chown -R runner:runner /opt/hostedtoolcache
 
-# Chrome for testing
-RUN wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb && \
+# Chrome and dependencies for testing
+RUN apt-get install -y \
+      fonts-liberation \
+      libasound2 \
+      libatk-bridge2.0-0 \
+      libatk1.0-0 \
+      libatspi2.0-0 \
+      libcups2 \
+      libdbus-1-3 \
+      libdrm2 \
+      libgbm1 \
+      libgtk-3-0 \
+      libnspr4 \
+      libnss3 \
+      libwayland-client0 \
+      libxcomposite1 \
+      libxdamage1 \
+      libxfixes3 \
+      libxkbcommon0 \
+      libxrandr2 \
+      xdg-utils && \
+    wget -q https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb && \
     apt install -y ./google-chrome-stable_current_amd64.deb && \
     rm google-chrome-stable_current_amd64.deb
+
+# Setup timezone
+ENV DEBIAN_FRONTEND=noninteractive
+RUN apt-get install -y tzdata && \
+    ln -fs /usr/share/zoneinfo/Asia/Bangkok /etc/localtime && \
+    dpkg-reconfigure -f noninteractive tzdata
 
 # Switch back to runner user
 USER runner
