@@ -58,7 +58,7 @@ RUN apt-get install -y tzdata && \
     dpkg-reconfigure -f noninteractive tzdata
 
 # Setup Docker Compose for e2e tests
-ENV DOCKER_CONFIG=/home/runner/.docker
+ENV DOCKER_CONFIG=/usr/local/lib/docker
 RUN mkdir -p $DOCKER_CONFIG/cli-plugins && \
     curl -SL https://github.com/docker/compose/releases/download/v5.0.0/docker-compose-linux-x86_64 -o $DOCKER_CONFIG/cli-plugins/docker-compose && \
     chmod +x $DOCKER_CONFIG/cli-plugins/docker-compose
