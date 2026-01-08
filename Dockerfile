@@ -57,6 +57,13 @@ RUN apt-get install -y tzdata && \
     ln -fs /usr/share/zoneinfo/Asia/Bangkok /etc/localtime && \
     dpkg-reconfigure -f noninteractive tzdata
 
+# Install Playwright Browsers
+RUN curl -fsSL https://deb.nodesource.com/setup_22.x | bash - && \
+    apt install nodejs -y && \
+    rm -rf /var/lib/apt/lists/* && \
+    apt clean && apt update --fix-missing && \
+    npx playwright install --with-deps chrome --only-shell
+
 # Setup Docker Compose for e2e tests
 ENV DOCKER_CONFIG=/usr/local/lib/docker
 RUN mkdir -p $DOCKER_CONFIG/cli-plugins && \
