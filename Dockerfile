@@ -65,15 +65,10 @@ RUN curl -fsSL https://deb.nodesource.com/setup_22.x | bash - && \
     npx playwright install --with-deps chrome --only-shell
 
 # Setup Docker Compose for e2e tests
-ENV DOCKER_CONFIG=/usr/local/lib/docker
+ENV DOCKER_CONFIG=~/.docker
 RUN mkdir -p $DOCKER_CONFIG/cli-plugins && \
     curl -SL https://github.com/docker/compose/releases/download/v5.0.0/docker-compose-linux-x86_64 -o $DOCKER_CONFIG/cli-plugins/docker-compose && \
     chmod +x $DOCKER_CONFIG/cli-plugins/docker-compose
-
-# Grant permission for docker buildx
-RUN mkdir -p /usr/local/lib/docker/buildx/certs \
-    && chown -R runner:runner /usr/local/lib/docker \
-    && chmod -R 755 /usr/local/lib/docker
 
 # Switch back to runner user
 USER runner
