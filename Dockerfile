@@ -29,7 +29,7 @@ RUN mkdir -p /opt/hostedtoolcache && \
 # Chrome and dependencies for testing
 RUN apt-get install -y \
       fonts-liberation \
-      libasound2 \
+      libasound2t64 \
       libatk-bridge2.0-0 \
       libatk1.0-0 \
       libatspi2.0-0 \
